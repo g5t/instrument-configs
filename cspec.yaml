@@ -1,0 +1,117 @@
+name: CSPEC
+
+source:
+  name: ESS moderator
+  frequency: 14 Hz
+  duration: 3e-3 s
+  velocities: (100, 1e9) m/s
+  emission_delay: (0, 0) s
+
+primary_spectrometer:
+  frequencies:
+    # The main frequency is that of the pulse shaping chopper
+    - name: Source  # This source frequency is implicitly included, so this line could be omitted
+    - name: Main
+      highest_harmonic: 12  # this frequency can be set to up-to 12x the source frequency
+      # alternatively specify allowed frequency harmonics explicitly
+      # harmonics: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 12
+    - name: Multiplier
+      highest_harmonic: 24
+      ratio: Main, 2  # the 2 * f_RRM always must be a rational ratio with f_main
+  path_segments:
+    - name: Moderator to First Bandwidth Chopper
+      length: 14.95 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (14.93, 14.93) m
+        long: (14.97, 14.97) m
+    - name: First Bandwith Chopper to Second Bandwidth Chopper
+      length: 5.52 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (5.50, 5.50) m
+        long: (5.54, 5.54) m
+    - name: Second Bandwith Chopper to Third Bandwidth Chopper
+      length: 84.12 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (84.10, 84.10) m
+        long: (84.14, 84.14) m
+    - name: Third Bandwidth Chopper to Pulse Shapping Chopper
+      length: 1.08 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (1.06, 1.06) m
+        long: (1.10, 1.10) m
+    - name: Pulse Shapping Chopper to Pulsing Chopper
+      length: 52.78 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (52.76, 52.76) m
+        long: (52.80, 52.80) m
+    - name: Pulsing Chopper to Monochromator Chopper
+      length: 0.05 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (0.04, 0.04) m
+        long: (0.06, 0.06) m
+    - name: Monochromator Chopper to Sample
+      length: 0.5 m
+  choppers:
+    - name: First Bandwidth
+      position: 14.95 m
+      opening: 40.7 degrees
+      radius: 350 mm
+      aperture:
+        width: 60 mm
+        height: 100 mm
+        offset: 250 mm
+    - name: Second Bandwidth
+      position: 20.47 m
+      opening: 58.6 degrees
+      radius: 350 mm
+      aperture:
+        width: 70 mm
+        height: 100 mm
+        offset: 250 mm
+    - name: Third Bandwidth
+      position: 104.59 m
+      opening: 193.0 degrees
+      radius: 350 mm
+      aperture:
+        width: 100 mm
+        height: 100 mm
+        offset: 250 mm
+    - name: Pulse Shaping
+      position: 105.67 m
+      opening: 23.45985 degrees
+      radius: 350 mm
+      slots: 3
+      discs: 2
+      frequency:
+        name: Main
+      aperture:
+        width: 114.66 mm
+        height: 73.89 mm
+    - name: Pulser Chopper
+      position: 158.45 m
+      opening: 4.29995 degrees
+      radius: 350 mm
+      frequency:
+        name: Multiplier
+      aperture:
+        width: 22.6 mm
+        height: 49 mm
+    - name: Monochromator
+      position: 158.50 m
+      opening: 4.29615 degrees
+      radius: 350 mm
+      discs: 2
+      frequency:
+        name: Main
+        multiplier: 2
+      aperture:
+        width: 22.58 mm
+        height: 49 mm
+  sample:
+    position: 159.0 m

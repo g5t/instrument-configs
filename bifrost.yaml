@@ -1,0 +1,87 @@
+name: BIFROST
+#BIFROST chopper specifications from CHESS document ESS-3164400 Rev. 1 page 12
+#Plus updated information from Rasmus on 2022-02-04:
+#    FOC1: 38.40 deg
+#    FOC2: 52.14 deg
+#    PSC distance: 6342 mm from the W4 ISCS origo
+#    FOC 1 distance: 8530 mm from the ISCS origo
+#    FOC 2 distance: 14973 mm from the ISCS origo
+#    BW distance: 78000 mm from the ISCS origo
+
+source:
+  name: ESS moderator
+  frequency: 14 Hz
+  duration: 3 µs
+  velocities: (100, 1e9) m/s
+  emission_delay: (0, 0) s
+
+primary_spectrometer:
+  frequencies:
+    - name: Main
+      highest_harmonic: 15
+  path_segments:
+    - name: Moderator to Pulse Shaping Chopper
+      length: 6.342 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (6.340, 6.340) m
+        long: (6.344, 6.344) m
+    - name: Pulse Shaping Chopper to First Frame Overlap Chopper
+      length: 2.188 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (2.186, 2.186) m
+        long: (2.190, 2.190) m
+    - name: First Frame Overlap Chopper to Second Frame Overlap Chopper
+      length: 6.443 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (6.441, 6.441) m
+        long: (6.445, 6.445) m
+    - name: Second Frame Overlap Chopper to Bandwidth Chopper
+      length: 63.027 m
+      guide:
+        velocities: (100, 1e9) m/s
+        short: (63.025, 63.025) m
+        long: (63.029, 63.029) m
+    - name: Bandwidth Chopper to Sample
+      length: 84.000 m
+  choppers:
+    - name: Pulse Shaping Chopper
+      position: 6.342 m
+      opening: 170 degrees
+      radius: 350 mm
+      discs: 2
+      frequency:
+        name: Main
+      aperture:
+        width: 30 mm
+        height: 48 mm
+        offset: 302 mm
+    - name: First Frame Overlap Chopper
+      position: 8.530 m
+      opening: 38.40 degrees
+      radius: 350 mm
+      aperture:
+        width: 30 mm
+        height: 48 mm
+        offset: 302 mm
+    - name: Second Frame Overlap Chopper
+      position: 14.973 m
+      opening: 52.14 degrees
+      radius: 350 mm
+      aperture:
+        width: 30 mm
+        height: 48 mm
+        offset: 302 mm
+    - name: Bandwidth Chopper
+      position: 78.000 m
+      opening: 161.0 degrees
+      radius: 350 mm
+      discs: 2
+      aperture:
+        width: 60 mm
+        height: 90 mm
+        offset: 260 mm
+  sample:
+    position: 162.0 m
